@@ -15,7 +15,7 @@ const port = process.env.PORT || 4000;
 
 // ⭐ IMPORTANT: ENABLE CREDENTIALS FOR CLERK COOKIE SESSION
 app.use(cors({
-    origin: "http://localhost:5173",     // change to frontend URL in production
+    origin: "https://invoiceitt.netlify.app/",     // change to frontend URL in production
     credentials: true
 }));
 

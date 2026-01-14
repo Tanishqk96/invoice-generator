@@ -2,7 +2,7 @@ import path from "path";
 import { getAuth } from "@clerk/express";
 import BusinessProfile from "../models/businessProfileModel.js";
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = "https://invoice-generator-ld87.onrender.com";
 
 /* ---------------------- File to URL Converter ---------------------- */
 function uploadedFilesToUrls(req) {
