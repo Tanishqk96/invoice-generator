@@ -16,23 +16,24 @@ const port = process.env.PORT || 4000;
 // ⭐ IMPORTANT: ENABLE CREDENTIALS FOR CLERK COOKIE SESSION
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://invoiceitt.netlify.app/" // Ensure this exactly matches your Netlify URL (no trailing slash)
+  "https://invoiceitt.netlify.app" // Ensure this exactly matches your Netlify URL (no trailing slash)
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow requests with no origin (like Postman or mobile)
     if (!origin) return callback(null, true);
-    // Use .includes to catch minor string mismatches or use a simple boolean check
+    
     if (allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
+      callback(null, true);
     } else {
-      console.log("Blocked by CORS:", origin); // This helps you see the error in Render logs
-      return callback(new Error("CORS not allowed"), false);
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
-
 
 // ⭐ Use Clerk middleware globally (does NOT protect routes)
 app.use(clerkMiddleware());
