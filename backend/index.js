@@ -16,17 +16,17 @@ const port = process.env.PORT || 4000;
 // ⭐ IMPORTANT: ENABLE CREDENTIALS FOR CLERK COOKIE SESSION
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://invoiceit.netlify.app"
+  "https://invoiceitt.netlify.app/" // Ensure this exactly matches your Netlify URL (no trailing slash)
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow server-to-server or Postman requests
     if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
+    // Use .includes to catch minor string mismatches or use a simple boolean check
+    if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     } else {
+      console.log("Blocked by CORS:", origin); // This helps you see the error in Render logs
       return callback(new Error("CORS not allowed"), false);
     }
   },
